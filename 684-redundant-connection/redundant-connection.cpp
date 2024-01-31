@@ -2,12 +2,11 @@ class Solution {
 public:
     vector<int> parent;
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
-         
         for(int i=0;i<=edges.size(); i++){
             parent.push_back(i);
         }
 
-        for(const auto &edge:edges){
+        for(vector<int> edge :edges){
             int p1 = find(edge[0]);
             int p2 = find(edge[1]);
 
