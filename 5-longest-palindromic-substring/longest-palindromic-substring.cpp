@@ -12,7 +12,7 @@ public:\
         return s.substr(ms, ml);
     }
 
-    void middleOut(string s, int i, int j) {
+    void middleOut(string &s, int i, int j) {
         while (i >= 0 && j <= s.size() - 1 && s[i] == s[j]) {
             i--;
             j++;
