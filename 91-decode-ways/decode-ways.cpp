@@ -1,30 +1,26 @@
 class Solution {
 public:
-    int numDecodingsTopDown(string s, int index, vector<int>& memo) {
-        if (index == s.length()) {
-            return 1;
-        }
-
-        if (s[index] == '0') {
+    int numDecodings(string s) {
+        if(s[0]=='0'){
             return 0;
         }
+        int n = s.size();
+        vector<int> dp(n+1);
+        dp[0]=1;
+        dp[1]=1; 
 
-        if (memo[index] != -1) {
-            return memo[index];
+        for(int i=2; i<=n; i++){
+            int one = stoi(s.substr(i-1,1));
+            if(one >=1 && one <=9){
+                dp[i]+=dp[i-1];
+            }
+
+            int ten = stoi(s.substr(i-2,2));
+            if(ten >=10 && ten<=26){
+                dp[i]+=dp[i-2];
+            }
         }
-
-        int ways = numDecodingsTopDown(s, index + 1, memo);
-
-        if (index + 1 < s.length() && (s[index] == '1' || (s[index] == '2' && s[index + 1] <= '6'))) {
-            ways += numDecodingsTopDown(s, index + 2, memo);
-        }
-
-        memo[index] = ways;
-        return ways;
-    }
-
-    int numDecodings(string s) {
-        vector<int> memo(s.length(), -1);
-        return numDecodingsTopDown(s, 0, memo);
+        return dp[n];
+        
     }
 };
