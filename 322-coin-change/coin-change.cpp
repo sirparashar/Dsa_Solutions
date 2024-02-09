@@ -1,35 +1,19 @@
 class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
+        int dp[amount + 1];
+        dp[0] = 0;
 
-        unordered_map<int, int> m;
-        return helper(coins, amount, m);
-    }
-    int helper(vector<int>& coins, int amount, unordered_map<int, int>& m) {
-        if (amount == 0) {
-            return 0;
-        }
-
-        if (amount < 0) {
-            return -1;
-        }
-
-        if (m.find(amount) != m.end()) {
-            return m[amount];
-        }
-        int mincoins = -1;
-        for (int i = 0; i < coins.size(); i++) {
-            if (amount - coins[i] >= 0) {
-                int subcoins = helper(coins, amount - coins[i], m);
-                if (subcoins != -1) {
-                    int numcoins = subcoins + 1;
-                    if (numcoins < mincoins || mincoins == -1) {
-                        mincoins = numcoins;
+        for (int i = 1; i <= amount; i++) {
+            dp[i] = INT_MAX;
+            for (int coin : coins) {
+                if (i - coin >= 0) {
+                    if (dp[i-coin] != INT_MAX) {
+                        dp[i] = min(dp[i], 1 + dp[i - coin]);
                     }
                 }
             }
         }
-        m[amount] = mincoins;
-        return m[amount];
+        return dp[amount] == INT_MAX ? -1 : dp[amount];
     }
 };
