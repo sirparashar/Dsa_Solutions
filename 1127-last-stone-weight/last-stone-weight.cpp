@@ -7,7 +7,7 @@ public:
             pq.pop();
             int y = pq.top();
             pq.pop();
-            if(x>y) 
+            if(x!=y) 
             {
                 pq.push(x-y);
             }
