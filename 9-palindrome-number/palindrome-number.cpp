@@ -1,15 +1,17 @@
 class Solution {
 public:
-    bool isPalindrome(int n) {
-        string s = to_string(n);
-
-        int i=0; int j=s.size()-1;
-        while(i<=j){
-            if(s[i]!=s[j]){
+    bool isPalindrome(int x) {
+        string s=to_string(x);
+        int st=0;
+        int e=s.length()-1;
+        while(st<e)
+        {
+            if(s[st]!=s[e])
+            {
                 return false;
             }
-            i++;
-            j--;
+            st++;
+            e--;
         }
         return true;
     }
