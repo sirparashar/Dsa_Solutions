@@ -14,10 +14,7 @@ public:
         }
         cout<<count;
 
-        if(count==s.size()){
-            return true;
-        }
-        return false;
+       return count==s.size();
 
     }
 };
