@@ -1,23 +1,27 @@
+
+
 class Solution {
 public:
     int subarraysWithKDistinct(vector<int>& nums, int k) {
-        int sub_with_max_element_k = subarray_with_atmost_k(nums,k);
-        int reduced_sub_with_max_k = subarray_with_atmost_k(nums,k-1);
-        return (sub_with_max_element_k - reduced_sub_with_max_k);
+        return countArray(nums, k) - countArray(nums, k - 1);
     }
-    int subarray_with_atmost_k(vector<int>& nums,int k){
-        unordered_map<int,int> map;
-        int left = 0 , right = 0,ans = 0;
-        while(right<nums.size()){
-            map[nums[right]]++;
-            while(map.size()>k){
-                map[nums[left]]--;
-                if(map[nums[left]]==0)map.erase(nums[left]);
-                left++;
+    
+    int countArray(vector<int>& nums, int k) {
+        int count = 0;
+        vector<int> occur(nums.size() + 1, 0);
+        int i = 0, j = 0, unique = 0;
+        while (j < nums.size()) {
+            if (occur[nums[j]] == 0)
+                unique++;
+            occur[nums[j]]++;
+            while (i <= j && unique > k) {
+                occur[nums[i]]--;
+                if (occur[nums[i++]] == 0)
+                    unique--;
             }
-            ans += right-left+1;
-            right++;
+            count += j - i + 1;
+            j++;
         }
-        return ans;
+        return count;
     }
 };
