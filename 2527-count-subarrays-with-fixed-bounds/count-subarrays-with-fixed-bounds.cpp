@@ -1,21 +1,28 @@
 
+
 class Solution {
 public:
     long long countSubarrays(vector<int>& nums, int minK, int maxK) {
+        int mini=-1;
+        int maxi=-1;
         long long ans=0;
-        int maxi=-1, mini=-1;
-        int s=nums.size();
-        for(int r=0, l=0; r<s; r++){
-            int x=nums[r];
-            if (x<minK ||x>maxK){// x exceeds the bound
-                l=r+1; // move l to r+1
-                continue;
+        int st=0;
+        for(int i=0; i<nums.size(); i++){
+            if(nums[i]<minK || nums[i]>maxK){
+                mini=-1;
+                maxi=-1;
+                st=i+1;
             }
-            if (x==maxK) maxi=r; // position for maxK
-            if (x==minK) mini=r; // position for minK
-            ans+=max((min(maxi, mini)-l+1),0);
+            if(nums[i]==minK){
+                mini=i;
+            }
+            if(nums[i]==maxK){
+                maxi=i;
+            }
+            
+            ans+=max(0,min(mini,maxi)-st+1);
+
         }
         return ans;
     }
 };
-
