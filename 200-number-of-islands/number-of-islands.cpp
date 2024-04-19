@@ -1,37 +1,46 @@
 class Solution {
 public:
-    set<pair<int, int>> s;
-    int count;
+    int count=0;
+    set<pair<int,int>>s;
     int numIslands(vector<vector<char>>& grid) {
 
-        for (int i = 0; i < grid.size(); i++) {
-            for (int j = 0; j < grid[0].size(); j++) {
-
-                if(explore(grid, i, j)){
+        for(int i=0; i<grid.size(); i++){
+            for(int j=0; j<grid[0].size(); j++){
+                if(getiland(grid,i,j)){
                     count++;
                 }
             }
         }
-        return count;
+           
+           return count;
     }
 
-    bool explore(vector<vector<char>>& grid, int r, int c ){
-        if(r<0 or r>grid.size()-1) return false;
-        if(c<0 or c>grid[0].size()-1) return false;
-        if(grid[r][c]=='0'){
-            return false;
-        }
+    bool getiland(vector<vector<char>>& grid, int i, int j){
+      
+    if(i<0 || i>grid.size()-1){
+        return false;
+    }
+    if(j<0 || j>grid[0].size()-1){
+        return false;
+    }
 
-        if(s.find({r,c})!= s.end()){
-            return false;
-        }
-        s.insert({r,c});
-        explore(grid, r+1, c);
-        explore(grid, r, c+1);
-        explore(grid, r, c-1);
-        explore(grid, r-1, c);
+    if(grid[i][j]=='0'){
+        return false;
+    }    
 
-        return true;
+    if(s.find({i,j})!=s.end()){
+        return false;
+    }
+
+    s.insert({i,j});
+
+    getiland(grid,i-1,j);
+    getiland(grid,i+1,j);
+    getiland(grid,i,j+1);
+    getiland(grid,i,j-1);
+
+    return true;
+    
 
     }
 };
