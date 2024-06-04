@@ -2,7 +2,7 @@ class Solution {
 public:
     int longestPalindrome(string s) {
 
-        set<char> m;
+        unordered_set<char> m;
 
         int len = 0;
 
