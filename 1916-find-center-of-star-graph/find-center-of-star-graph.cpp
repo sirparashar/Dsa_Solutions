@@ -1,20 +1,10 @@
 class Solution {
 public:
     int findCenter(vector<vector<int>>& edges) {
-      
-      unordered_map<int,int> m;
-      for(auto edge : edges){
-        m[edge[0]]++;
-        m[edge[1]]++;
-      }
-
-      for(auto no:m){
-        cout<<no.second;
-        if(no.second>=edges.size()){
-            return no.first;
-        }
-      }
-      return -1;
-
+        vector<int>s(1);
+        sort(edges[0].begin(),edges[0].end());
+        sort(edges[1].begin(),edges[1].end());
+        set_intersection(edges[0].begin(),edges[0].end(),edges[1].begin(),edges[1].end(),s.begin());
+        return s[0];
     }
 };
