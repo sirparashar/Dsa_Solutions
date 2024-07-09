@@ -1,20 +1,23 @@
 class Solution {
 public:
     double averageWaitingTime(vector<vector<int>>& customers) {
-        int n = customers.size();
-        double time_waiting = customers[0][1];
-        int finished_prev = customers[0][0] + customers[0][1];
-
-        for (int customer_ind = 1; customer_ind < n; ++customer_ind) {
-            vector<int> times = customers[customer_ind];
-            int arrive = times[0];
-
-            int start_cook = max(arrive, finished_prev);
-            int end_time = start_cook + times[1];
-            finished_prev = end_time;
-            time_waiting += end_time - arrive;
+        double totalWaitTime = 0;
+        int curt = 0;
+        
+        for(int i = 0; i < customers.size(); i++) {
+            // If the current time is less than the customer's arrival time, update current time to the arrival time
+            if (curt < customers[i][0]) {
+                curt = customers[i][0];
+            }
+            // Calculate the waiting time for the current customer
+            int waitTime = curt + customers[i][1] - customers[i][0];
+            // Update the total waiting time
+            totalWaitTime += waitTime;
+            // Update the current time to when this customer's service is completed
+            curt += customers[i][1];
         }
 
-        return time_waiting / n;
+        // Calculate and return the average waiting time
+        return totalWaitTime / customers.size();
     }
 };
