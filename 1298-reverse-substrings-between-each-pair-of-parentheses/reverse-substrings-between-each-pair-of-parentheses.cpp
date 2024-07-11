@@ -11,9 +11,9 @@ public:
                      res += stac.top();
                      stac.pop();
                 }
-                if(!stac.empty()){
+               // if(!stac.empty()){
                     stac.pop();
-                }
+               // }
                 for(int j=0 ; j<res.size(); j++){
                     stac.push(res[j]);
                 }
