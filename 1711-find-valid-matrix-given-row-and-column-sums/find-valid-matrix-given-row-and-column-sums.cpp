@@ -9,10 +9,9 @@ public:
 
        for(int i =0; i<rows; i++){
         for(int j=0; j<cols; j++){
-            int val = min(rowSum[i],colSum[j]);
-            res[i][j]=val;
-            rowSum[i]-=val;
-            colSum[j]-=val;
+            res[i][j] = min(rowSum[i],colSum[j]);
+            rowSum[i]-=res[i][j];
+            colSum[j]-=res[i][j];
         }
        }   
        return res;
