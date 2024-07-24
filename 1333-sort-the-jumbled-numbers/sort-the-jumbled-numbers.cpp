@@ -3,8 +3,7 @@
 
 class Solution {
 public:
-    // Function to transform a number based on the given mapping
-    int transformNumber(int num, const std::vector<int>& mapping) {
+    int transformNumber(int num, const vector<int>& mapping) {
         if (num == 0)
             return mapping[0];
         int transformed = 0, place = 1;
@@ -17,8 +16,8 @@ public:
         return transformed;
     }
 
-    vector<int> sortJumbled(const std::vector<int>& mapping,
-                            std::vector<int>& nums) {
+    vector<int> sortJumbled(const vector<int>& mapping,
+                            vector<int>& nums) {
         // Create a vector of pairs to store original numbers and their
         // transformed values
         std::vector<std::pair<int, int>> transformedNums;
