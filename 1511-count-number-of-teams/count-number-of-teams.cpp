@@ -16,18 +16,9 @@ public:
             }
             res += ls * rl;
 
-            int ll = 0, rs = 0;
+            int ll=i-ls;
+            int rs=rating.size()-i-rl-1;
 
-            for (int j = 0; j < i; j++) {
-                if (rating[j] > rating[i]) {
-                    ll++;
-                }
-            }
-            for (int j = i + 1; j < rating.size(); j++) {
-                if (rating[j] < rating[i]) {
-                    rs++;
-                }
-            }
 
             res += ll * rs;
         }
