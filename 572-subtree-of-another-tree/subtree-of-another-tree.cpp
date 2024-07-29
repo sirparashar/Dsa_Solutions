@@ -1,25 +1,32 @@
 class Solution {
 public:
-    bool getres(TreeNode* root, TreeNode* subRoot) {
-        if (root == nullptr && subRoot == nullptr) {
-            return true;
-        }
-        if (root == nullptr || subRoot == nullptr) {
-            return false;
-        }
-        if (root->val != subRoot->val) {
-            return false;
-        }
-        return getres(root->left, subRoot->left) && getres(root->right, subRoot->right);
-    }
-
-    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        if (root == nullptr) {
-            return false;
-        }
-        if (getres(root, subRoot)) {
-            return true;
-        }
-        return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
-    }
+   
+   bool isSametree(TreeNode* s, TreeNode* t){
+       //if any of the tree is null then there is no need to compare 
+       if(!s || !t){
+           //if either of them are null both of them need to be null to be true
+           return s==NULL && t==NULL;
+       } //now since both are not null check if they have same value otherwise return false
+       else if(s->val == t->val){
+           //if value is same then check if both its left and right sub-tree are same          
+           return isSametree(s->left,t->left) && isSametree(s->right,t->right);
+       }
+       else{
+           return false;
+       }
+   }
+   bool isSubtree(TreeNode* s, TreeNode* t) {
+         if(!s){
+             //if main tree is null then return false
+             return false;
+         }   
+         else if(isSametree(s,t)){
+             //check if s and t are same, if yes return true
+             return true;
+         }
+         else{
+             //if s and t are not same then pass left and right nodes, and check same for that nodes as well as its child nodes.
+             return isSubtree(s->left,t) || isSubtree(s->right,t);
+         }
+   }
 };
