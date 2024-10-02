@@ -13,9 +13,9 @@ public:
         vector<int>res;
 
         for(int i =0 ; i<temp.size(); i++){
-            temp[i] = rank[arr[i]];
+            arr[i] = rank[arr[i]];
         }
      
-      return temp;
+      return arr;
     }
 };
