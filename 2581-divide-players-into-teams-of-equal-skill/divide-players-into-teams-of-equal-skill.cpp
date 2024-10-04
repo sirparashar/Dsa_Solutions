@@ -3,7 +3,6 @@ public:
     long long dividePlayers(vector<int>& skill) {
         sort(skill.begin(), skill.end());
 
-        vector<pair<int, int>> group;
         if (skill.size()%2 != 0) {
             cout<<'p';
             return -1;
