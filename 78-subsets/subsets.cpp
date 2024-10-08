@@ -2,14 +2,16 @@ class Solution {
 public:
     
     void getsub(vector<int> nums,int index,vector<int>& sub,  vector<vector<int>>& res ){
-       res.push_back(sub);
+          
+          if(index==nums.size()){
+            res.push_back(sub);
+            return;
+          }
+          getsub(nums,index+1,sub,res);
 
-       for(int i =index; i<nums.size(); i++){
-        sub.push_back(nums[i]);
-        getsub(nums,i+1,sub,res);
-        sub.pop_back();
-       }
-
+          sub.push_back(nums[index]);
+         getsub(nums,index+1,sub,res);
+         sub.pop_back();
 
     }
 
