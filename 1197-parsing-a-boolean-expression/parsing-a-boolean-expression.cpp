@@ -1,24 +1,19 @@
 class Solution {
 public:
     char parseOR(string temp) {
-        cout << 'o';
-        bool res=false;
-        //cout << temp;
+        bool res = false;
         for (char c : temp) {
-           
+
             if (c == 'f') {
                 res = res || false;
             } else if (c == 't') {
                 res = res || true;
             }
-         //    cout<<res;
         }
-        // cout<<res;
         return res == false ? 'f' : 't';
     }
     char parseA(string temp) {
-        bool res=true;
-        cout << 'a';
+        bool res = true;
         for (char c : temp) {
             if (c == 'f') {
                 res = res && false;
@@ -30,10 +25,8 @@ public:
     }
 
     char parseN(string temp) {
-        cout << 'n';
         bool res = temp == "f" ? false : true;
-        //  cout<<temp;
-        // cout<<res;
+
         for (char c : temp) {
             if (c == 'f') {
                 res = !res;
@@ -41,7 +34,7 @@ public:
                 res = !res;
             }
         }
-        //  cout<<res;
+
         return res == 0 ? 'f' : 't';
     }
     bool parseBoolExpr(string exp) {
@@ -52,11 +45,10 @@ public:
             if (exp[i] == ')') {
                 string temp = "";
                 while (s.top() != '(') {
-                    // cout << s.top();
+                  
                     temp += s.top();
                     s.pop();
                 }
-                // cout<<temp;
                 s.pop();
                 char parse;
                 if (s.top() == '|' && !s.empty()) {
@@ -68,20 +60,15 @@ public:
                 }
 
                 else if (s.top() == '!' && !s.empty()) {
-                    // cout<<temp;
                     parse = parseN(temp);
-                    cout << parse;
                     s.pop();
                 }
-                // cout<<parse;
                 s.push(parse);
-                // cout<<s.top();
             } else {
                 s.push(exp[i]);
             }
         }
         if (s.top() == 'f') {
-            cout << s.top();
             return false;
         } else {
             return true;
