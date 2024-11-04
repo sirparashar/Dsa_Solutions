@@ -15,7 +15,7 @@ public:
             } else {
                 comp += to_string(count);
                 comp += word[i];
-                cout<<'p';
+               // cout<<'p';
                 count=1;
                 
             }
