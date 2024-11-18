@@ -7,7 +7,6 @@ public:
                 int sum = 0;
                 for (int j = i + 1; j < (k + i + 1); j++) {
                     sum += code[j % code.size()];
-                    cout << 'p';
                 }
                 res[i] = sum;
             }
