@@ -1,46 +1,47 @@
 class Solution {
 public:
     int minimumTime(vector<vector<int>>& grid) {
-        if (grid[0][1] > 1 && grid[1][0] > 1) return -1;
-        
-        int rows = grid.size();
-        int cols = grid[0].size();
-        
-        priority_queue<pair<int, pair<int, int>>, 
-                      vector<pair<int, pair<int, int>>>, 
-                      greater<pair<int, pair<int, int>>>> minHeap;
-        
-        minHeap.push({0, {0, 0}}); // time, row(x), col(y)
-        
-        vector<vector<int>> seen(rows, vector<int>(cols, 0));
-        seen[0][0] = 1;
-        
-        vector<pair<int, int>> moves = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-        
-        while (!minHeap.empty()) {
-            auto curr = minHeap.top();
-            int currTime = curr.first;
-            int currRow = curr.second.first;
-            int currCol = curr.second.second;
-            
-            minHeap.pop();
-            
-            if (currRow == rows - 1 && currCol == cols - 1) 
-                return currTime;
-            
-            for (auto move : moves) {
-                int nextRow = move.first + currRow;
-                int nextCol = move.second + currCol;
-                
-                if (nextRow >= 0 && nextCol >= 0 && 
-                    nextRow < rows && nextCol < cols && 
-                    !seen[nextRow][nextCol]) {
-                    
-                    int waitTime = ((grid[nextRow][nextCol] - currTime) % 2 == 0) ? 1 : 0;
-                    int nextTime = max(currTime + 1, grid[nextRow][nextCol] + waitTime);
-                    
-                    minHeap.push({nextTime, {nextRow, nextCol}});
-                    seen[nextRow][nextCol] = 1;
+        int m = grid.size();
+        int n = grid[0].size();
+
+        if (grid[0][0] + 1 < grid[1][0] && grid[0][0] + 1 < grid[0][1]) {
+            return -1;
+        }
+
+        vector<vector<bool>> vis(m, vector<bool>(n, false));
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>>
+            pq;
+
+        vector<int> dir = {-1, 0, 1, 0, -1};
+
+        pq.push({0, 0, 0});
+
+        while (!pq.empty()) {
+            auto cur = pq.top();
+            pq.pop();
+            int t = cur[0];
+            int r = cur[1];
+            int c = cur[2];
+
+            if (vis[r][c]) {
+                continue;
+            }
+            if (c == n - 1 && r == m - 1) {
+                return t;
+            }
+            vis[r][c] = true;
+
+            for (int i = 0; i < 4; i++) {
+                int nr = r + dir[i];
+                int nc = c + dir[i + 1];
+
+                int newt = 0;
+                if (nr >= 0 && nc >= 0 && nc < n && nr < m) {
+                    if (grid[nr][nc] > t+1) {
+                        newt = (grid[nr][nc]-t) % 2 ? grid[nr][nc] 
+                                                : grid[nr][nc]+1 ;
+                    }
+                    pq.push({max(newt,t+1), nr, nc});
                 }
             }
         }
