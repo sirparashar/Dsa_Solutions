@@ -9,7 +9,6 @@ public:
         for(int i =0; i<sentence.size(); i++){
             if(sentence[i]==' '){
              res++;
-              cout<<'p';
             
                 if(temp.substr(0,n)==searchWord){
                     return res;
@@ -18,7 +17,6 @@ public:
                 continue;
             }
             temp+=sentence[i];
-            cout<<temp<<"\n";
 
 
         }
