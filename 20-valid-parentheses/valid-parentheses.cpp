@@ -11,10 +11,8 @@ public:
             } else if (!stk.empty()) {
                 char t = stk.top();
                 stk.pop();
-                cout << s[i] << t;
                 if ((s[i] == ']' && t != '[') || (s[i] == '}' && t != '{') ||
                     (s[i] == ')' && t != '(')) {
-                    cout << 'p';
                     return false;
                 }
             }
