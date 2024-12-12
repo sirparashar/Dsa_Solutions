@@ -7,7 +7,6 @@ public:
         }
         long long sum=0;
         for(auto i :gifts){
-            cout<<i<<" ";
             sum+=i;
         }
         return sum;
