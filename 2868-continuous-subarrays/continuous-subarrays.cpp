@@ -1,25 +1,37 @@
 class Solution {
 public:
     long long continuousSubarrays(vector<int>& nums) {
-        map<int,int> f;
+        long long count = 0, winl = 0;
+        int right = 0;
+        int left = 0;
+        int curmax, curmin;
+        curmin = curmax = nums[left];
 
-        int left=0;
-        int right =0;
+        while (right < nums.size()) {
+            curmin = min(curmin, nums[right]);
+            curmax = max(curmax, nums[right]);
 
-        int n = nums.size();
-        long long count=0;
-        while(right<n){
-            f[nums[right]]++;
-            while(f.rbegin()->first - f.begin()->first >2){
-                f[nums[left]]--;
-                if(f[nums[left]]==0){
-                    f.erase(nums[left]);
+            if (curmax - curmin > 2) {
+                winl = right - left;
+                count += (winl * (winl + 1) / 2);
+                left = right;
+                curmin = curmax = nums[left];
+
+                while (left > 0 && abs(nums[right] - nums[left-1]) <= 2) {
+                    left--;
+                    curmin = min(curmin, nums[left]);
+                    curmax = max(curmax, nums[left]);
                 }
-                left++;
+
+                if (left < right) {
+                    winl = right - left;
+                    count -= (winl * (winl + 1) / 2);
+                }
             }
-            count+=right-left+1;
             right++;
         }
+        winl = right - left;
+        count += (winl * (winl + 1) / 2) ;
         return count;
     }
 };
