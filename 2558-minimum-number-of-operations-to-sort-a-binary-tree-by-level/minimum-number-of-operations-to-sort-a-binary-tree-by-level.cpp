@@ -26,7 +26,7 @@ public:
             if (t[i] != res[i]) {
                 int ci = m[res[i]];
                 m[t[i]]=ci;
-                m[t[ci]]=i;
+                m[res[i]]=i;
                 count++;
                 swap(t[i],t[ci]);
 
